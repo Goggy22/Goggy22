@@ -1,0 +1,67 @@
+python
+Copy code
+import tkinter as tk
+from tkinter import messagebox
+
+class DataCollectionApp:
+    def __init__(self, master):
+        self.master = master
+        master.title("Data Collection App")
+
+        self.label = tk.Label(master, text="Enter Data:")
+        self.label.pack()
+
+        self.entry = tk.Entry(master)
+        self.entry.pack()
+
+        self.submit_button = tk.Button(master, text="Submit", command=self.submit_data)
+        self.submit_button.pack()
+
+    def submit_data(self):
+        data = self.entry.get()
+        # Here you can do whatever you want with the collected data, like saving to a file or a database
+        messagebox.showinfo("Data Collected", f"Data '{data}' collected successfully!")
+
+def main():
+    root = tk.Tk()
+    app = DataCollectionApp(root)
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()
+ # This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
